@@ -1,0 +1,6 @@
+com/examples/AppOnFile.java
+ com.examples.AppOnFile
+com/examples/DjlImageVisitor.java
+ com.examples.DjlImageVisitor
+com/examples/App.java
+ com.examples.App

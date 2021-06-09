@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform("ai.djl:bom:0.10.0")
+    implementation "ai.djl:api"
+    implementation "commons-cli:commons-cli:1.4"
+    implementation "software.amazon.awssdk:kinesisvideo:2.10.75"
+    implementation "software.amazon.kinesis:amazon-kinesis-client:2.2.9"
+    implementation "com.amazonaws:amazon-kinesis-video-streams-parser-library:1.0.13"
+
+    // See https://github.com/deepjavalibrary/djl/blob/master/mxnet/mxnet-engine/README.md for more MXNet library selection options
+    runtimeOnly "ai.djl.mxnet:mxnet-native-auto"
+    runtimeOnly "ai.djl.mxnet:mxnet-model-zoo"
+    runtimeOnly "org.apache.logging.log4j:log4j-slf4j-impl:2.12.1"
+}
+
+application {
+    mainClassName = System.getProperty("main", "org.example.App")
+}
+
+run {
+    systemProperties System.getProperties()
+    systemProperties.remove("user.dir")
+    systemProperty("file.encoding", "UTF-8")
+}
+
+configure(this) {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    apply from: file("${rootProject.projectDir}/../../tools/gradle/formatter.gradle")
+}
